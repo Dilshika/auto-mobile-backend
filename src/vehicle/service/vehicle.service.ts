@@ -12,7 +12,7 @@ export class VehicleService {
         
         const query=gql`
         query findAll($first:Int!,$offset:Int!,$orderBy:[VehiclesOrderBy!],$VehicleModel:String!) {
-            allVehicles(
+            allVehicles( 
                 first:$first
                 offset:$offset
                 orderBy:$orderBy
@@ -73,8 +73,11 @@ export class VehicleService {
 
     async updateVehicle(id:number,updateVehicleInput:UpdateVehicleDto){
         const query=gql`
-        mutation update {
-            updateVehicleById(input: {vehiclePatch: {${updateVehicleInput}}, id: ${id}}) {
+        mutation update($id:Int!,$updateVehicleInput:UpdateVehicleInput!) {
+            updateVehicleById(
+                id:$id
+                input: {vehiclePatch: {$updateVehicleInput}
+                ) {
               vehicle {
                 ageOfVehicle
                 carMake
@@ -90,17 +93,25 @@ export class VehicleService {
             }
           }
         `
-        const response=await request(this.endpoint,query);
+        const variables={
+            "id":id,
+            "updateVehicleInput":updateVehicleInput
+        }
+        const response=await request(this.endpoint,query,variables);
         return `${id} vehicle Updated Sucessfully`;
         
     }
 
     async deleteVehicle(id: number) {
         const query=gql`
-        mutation delete{
-          deleteVehicleById(input:{id:${id}})
+        mutation delete($id:Int!){
+          deleteVehicleById(input:{id:$id})
         }`
-        await request('http://localhost:5000/graphql',query);
+
+        const variables={
+            "id":id
+        }
+        await request('http://localhost:5000/graphql',query,variables);
         return `Deleted ${id} vehicle`;
       }
 

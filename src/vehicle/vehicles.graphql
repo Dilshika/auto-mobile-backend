@@ -6,7 +6,7 @@ type Query{
 
 type Mutation{
     createVehicle(CreateVehicleInput:CreateVehicleInput!):Vehicle!
-    updateVehicle(updateVehicleInput:UpdateVehicleInput!):Vehicle!
+    updateVehicle(id:Int!,updateVehicleInput:UpdateVehicleInput!):Vehicle!
     deleteVehicle(id:Int!):Vehicle!
 }
 

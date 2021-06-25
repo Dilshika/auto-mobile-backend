@@ -41,7 +41,7 @@ export abstract class IQuery {
 export abstract class IMutation {
     abstract createVehicle(CreateVehicleInput: CreateVehicleInput): Vehicle | Promise<Vehicle>;
 
-    abstract updateVehicle(updateVehicleInput: UpdateVehicleInput): Vehicle | Promise<Vehicle>;
+    abstract updateVehicle(id: number, updateVehicleInput: UpdateVehicleInput): Vehicle | Promise<Vehicle>;
 
     abstract deleteVehicle(id: number): Vehicle | Promise<Vehicle>;
 }
