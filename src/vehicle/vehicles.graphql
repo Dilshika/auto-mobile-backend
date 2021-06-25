@@ -1,0 +1,51 @@
+type Query{
+    findAll(orderBy:String!,first:Int!,offset:Int!):[Vehicle!]!
+    getFilteredVehicles(orderBy:String!,first:Int!,offset:Int!,VehicleModel:String!):VehicleDataConn!
+    findOne(id:Int!):Vehicle!
+}
+
+type Mutation{
+    createVehicle(CreateVehicleInput:CreateVehicleInput!):Vehicle!
+    updateVehicle(updateVehicleInput:UpdateVehicleInput!):Vehicle!
+    deleteVehicle(id:Int!):Vehicle!
+}
+
+type VehicleDataConn{
+    nodes:[Vehicle!]!
+    totalCount:Int!
+}
+
+type Vehicle{
+    id:Int!
+    firstName:String!
+    lastName:String!
+    email:String!
+    carMake:String!
+    carModel:String!
+    vinNumber:String!
+    manufacturedDate:String!
+    ageOfVehicle:Float!
+}
+
+input CreateVehicleInput{
+    id:Int!
+    firstName:String!
+    lastName:String!
+    email:String!
+    carMake:String!
+    carModel:String!
+    vinNumber:String!
+    manufacturedDate:String!
+    ageOfVehicle:Float!
+}
+
+input UpdateVehicleInput{
+    firstName:String!
+    lastName:String!
+    email:String!
+    carMake:String!
+    carModel:String!
+    vinNumber:String!
+    manufacturedDate:String!
+    ageOfVehicle:Float!
+}
