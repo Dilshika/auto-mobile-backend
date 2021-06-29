@@ -98,21 +98,24 @@ export class VehicleService {
             "updateVehicleInput":updateVehicleInput
         }
         const response=await request(this.endpoint,query,variables);
-        return `${id} vehicle Updated Sucessfully`;
+        return id;
         
     }
 
     async deleteVehicle(id: number) {
         const query=gql`
-        mutation delete($id:Int!){
-          deleteVehicleById(input:{id:$id})
-        }`
+        mutation deleteMutation($id:Int!) {
+            deleteVehicleById(input: {id: $id}) {
+              deletedVehicleId
+            }
+          }`
 
         const variables={
             "id":id
         }
-        await request('http://localhost:5000/graphql',query,variables);
-        return `Deleted ${id} vehicle`;
+        const response=await request('http://localhost:5000/graphql',query,variables);
+        console.log(id)
+        return response;
       }
 
 
